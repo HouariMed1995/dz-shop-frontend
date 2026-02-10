@@ -19,14 +19,14 @@ export default function Tailoring() {
   const { addToCart } = useCart();
 
   const measurementFields = [
-    { id: 'abayaLength', label: 'طول العباءة', image: 'https://placehold.co/600x800?text=شرح+طول+العباءة' },
-    { id: 'shoulderWidth', label: 'عرض الكتف', image: 'https://placehold.co/600x800?text=شرح+عرض+الكتف' },
-    { id: 'sleeveLength', label: 'طول اليد', image: 'https://placehold.co/600x800?text=شرح+طول+اليد' },
-    { id: 'bellyWidth', label: 'عرض البطن', image: 'https://placehold.co/600x800?text=شرح+عرض+البطن' },
-    { id: 'pantsLength', label: 'طول السروال', image: 'https://placehold.co/600x800?text=شرح+طول+السروال' },
-    { id: 'neckCirc', label: 'دورة الرقبة', image: 'https://placehold.co/600x800?text=شرح+دورة+الرقبة' },
-    { id: 'wristCirc', label: 'دورة اليد', image: 'https://placehold.co/600x800?text=شرح+دورة+اليد' },
-    { id: 'thighCirc', label: 'دورة الفخذ', image: 'https://placehold.co/600x800?text=شرح+دورة+الفخذ' },
+    { id: 'abayaLength', label: 'طول العباءة', image: 'https://res.cloudinary.com/dzjo2sbfd/image/upload/v1770684541/WhatsApp_Image_2026-02-09_at_4.43.56_PM_tcl8iq.jpg' },
+    { id: 'shoulderWidth', label: 'عرض الكتف', image: 'https://res.cloudinary.com/dzjo2sbfd/image/upload/v1770684895/WhatsApp_Image_2026-02-09_at_4.51.20_PM_p8dcvm.jpg' },
+    { id: 'sleeveLength', label: 'طول اليد', image: 'https://res.cloudinary.com/dzjo2sbfd/image/upload/v1770684896/WhatsApp_Image_2026-02-09_at_4.51.20_PM_1_xcmb3v.jpg' },
+    { id: 'bellyWidth', label: 'عرض البطن', image: 'https://res.cloudinary.com/dzjo2sbfd/image/upload/v1770684895/WhatsApp_Image_2026-02-09_at_4.51.20_PM_2_wrksmb.jpg' },
+    { id: 'pantsLength', label: 'طول السروال', image: 'https://res.cloudinary.com/dzjo2sbfd/image/upload/v1770684895/WhatsApp_Image_2026-02-09_at_4.51.20_PM_3_fodzs1.jpg' },
+    { id: 'neckCirc', label: 'دورة الرقبة', image: 'https://res.cloudinary.com/dzjo2sbfd/image/upload/v1770684894/WhatsApp_Image_2026-02-09_at_4.51.21_PM_1_nylw0y.jpg' },
+    { id: 'wristCirc', label: 'دورة اليد', image: 'https://res.cloudinary.com/dzjo2sbfd/image/upload/v1770684895/WhatsApp_Image_2026-02-09_at_4.51.20_PM_4_r2hgse.jpg' },
+    { id: 'thighCirc', label: 'دورة الفخذ', image: 'https://res.cloudinary.com/dzjo2sbfd/image/upload/v1770684895/WhatsApp_Image_2026-02-09_at_4.51.21_PM_rsiz8p.jpg' },
   ];
 
   useEffect(() => {
