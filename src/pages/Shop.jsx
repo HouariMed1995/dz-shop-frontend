@@ -84,7 +84,14 @@ export default function Shop() {
             <Link to={`/product/${product._id}`} className="block">
               <div className="w-full h-40 bg-gray-100 rounded-xl overflow-hidden mb-3 md:h-56 relative">
                  {(product.images?.[0] || product.image)?.includes('http') ? (
-                   <img src={product.images?.[0] || product.image} className="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt={product.name} />
+                   // 👇 التعديل هنا: إضافة خاصية Lazy Loading 👇
+                   <img 
+                     src={product.images?.[0] || product.image} 
+                     className="w-full h-full object-cover group-hover:scale-110 transition duration-500" 
+                     alt={product.name} 
+                     loading="lazy"    // تأجيل تحميل الصورة حتى تظهر على الشاشة
+                     decoding="async"  // فك تشفير الصورة في الخلفية لعدم تجميد المتصفح
+                   />
                  ) : (
                    <div className="w-full h-full flex items-center justify-center text-gray-400">لا توجد صورة</div>
                  )}

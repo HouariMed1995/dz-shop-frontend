@@ -74,7 +74,16 @@ export default function Tailoring() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-fade-in" onClick={() => setModalImage(null)}>
           <div className="bg-white rounded-2xl overflow-hidden max-w-md w-full relative shadow-2xl" onClick={e => e.stopPropagation()}>
             <button onClick={() => setModalImage(null)} className="absolute top-2 right-2 bg-gray-100 p-2 rounded-full hover:bg-red-100 hover:text-red-500 transition z-10"><X size={20} /></button>
-            <div className="p-2 bg-gray-100"><img src={modalImage} className="w-full h-auto rounded-xl" alt="توضيح المقاس" /></div>
+            {/* 👇 تعديل صورة المودال 👇 */}
+            <div className="p-2 bg-gray-100">
+                <img 
+                    src={modalImage} 
+                    className="w-full h-auto rounded-xl" 
+                    alt="توضيح المقاس" 
+                    loading="lazy" 
+                    decoding="async"
+                />
+            </div>
             <p className="text-center py-4 font-bold text-gray-700 bg-white">صورة توضيحية لطريقة القياس</p>
           </div>
         </div>
@@ -83,12 +92,21 @@ export default function Tailoring() {
       {!selectedType ? (
         <div>
           <h1 className="text-2xl font-bold text-gray-800 mb-6 md:text-3xl md:mb-8">تفصيل وخياطة</h1>
-          {/* md:grid-cols-4: تحويل الشبكة إلى 4 أعمدة في الكمبيوتر */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
             {tailoringTypes.length > 0 ? tailoringTypes.map((type) => (
               <button key={type._id} onClick={() => setSelectedType(type)} className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center gap-3 hover:border-blue-500 hover:shadow-md transition group">
                 <div className={`w-full h-32 md:h-48 rounded-lg bg-gray-100 overflow-hidden mb-2`}>
-                   {(type.images?.[0] || type.image)?.includes('http') ? <img src={type.images?.[0] || type.image} className="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt={type.name} /> : <div className={`w-full h-full ${type.image}`}></div>}
+                   {(type.images?.[0] || type.image)?.includes('http') ? 
+                     // 👇 تعديل صورة القائمة الرئيسية 👇
+                     <img 
+                        src={type.images?.[0] || type.image} 
+                        className="w-full h-full object-cover group-hover:scale-110 transition duration-500" 
+                        alt={type.name} 
+                        loading="lazy" 
+                        decoding="async"
+                     /> 
+                     : <div className={`w-full h-full ${type.image}`}></div>
+                   }
                 </div>
                 <span className="font-bold text-gray-700 md:text-lg">{type.name}</span>
                 <span className="text-xs md:text-sm text-blue-600">{type.price} د.ج</span>
@@ -103,7 +121,6 @@ export default function Tailoring() {
             <h2 className="text-xl font-bold text-gray-800 md:text-3xl">{selectedType.name}</h2>
           </div>
 
-          {/* تخطيط الصفحة: فليكس للهاتف (عمودي)، صف للكمبيوتر (أفقي) */}
           <div className="flex flex-col md:flex-row md:gap-12 md:items-start">
               
               {/* يمين الكمبيوتر: معرض الصور */}
@@ -114,7 +131,17 @@ export default function Tailoring() {
                             {(selectedType.images && selectedType.images.length > 0 ? selectedType.images : [selectedType.image]).map((img, idx) => (
                                 <div key={idx} className="outline-none">
                                     <div className="w-full h-72 md:h-[400px] bg-gray-50 flex items-center justify-center">
-                                        {img?.includes('http') ? <img src={img} className="w-full h-full object-contain" alt="تفصيل" /> : <div className={`w-full h-full ${img}`}></div>}
+                                        {img?.includes('http') ? 
+                                            // 👇 تعديل صور السلايدر 👇
+                                            <img 
+                                                src={img} 
+                                                className="w-full h-full object-contain" 
+                                                alt="تفصيل" 
+                                                loading="lazy" 
+                                                decoding="async"
+                                            /> 
+                                            : <div className={`w-full h-full ${img}`}></div>
+                                        }
                                     </div>
                                 </div>
                             ))}
@@ -129,7 +156,6 @@ export default function Tailoring() {
 
               {/* يسار الكمبيوتر: نموذج القياسات */}
               <div className="w-full md:flex-1">
-                  {/* الملاحظة تظهر في الهاتف هنا */}
                   <div className="md:hidden bg-red-50 border border-red-200 rounded-xl p-4 mb-8 flex gap-3 items-start shadow-sm">
                     <AlertCircle className="text-red-500 shrink-0 mt-1" size={20} />
                     <p className="text-sm text-red-800 leading-relaxed font-bold">تنبيه هام: الزبون يتحمل المسؤولية كاملة في حال تقديم قياسات خاطئة.</p>
@@ -141,7 +167,6 @@ export default function Tailoring() {
                         <span className="text-xs font-normal text-gray-500 bg-gray-200 px-2 py-0.5 rounded-full">اضغط (!) للمساعدة</span>
                     </h3>
                     
-                    {/* تحويل الحقول لشبكة ثنائية في الكمبيوتر */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {measurementFields.map((field) => (
                             <div key={field.id} className="relative flex items-center gap-2">

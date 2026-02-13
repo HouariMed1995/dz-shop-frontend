@@ -1,14 +1,14 @@
 // src/pages/Fabrics.jsx
 import { useState, useEffect } from 'react';
 import { ShoppingCart, MessageCircle, Loader, Share2 } from 'lucide-react';
-import { Link } from 'react-router-dom'; // ضروري للتنقل
+import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useSettings } from '../context/SettingsContext';
 
 export default function Fabrics() {
   const [fabrics, setFabrics] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [customOrder, setCustomOrder] = useState(""); // حالة الطلب الخاص
+  const [customOrder, setCustomOrder] = useState(""); 
   
   const { addToCart } = useCart();
   const { whatsappNumber } = useSettings();
@@ -18,7 +18,6 @@ export default function Fabrics() {
       try {
         const res = await fetch('https://dz-shop-api.onrender.com/api/products');
         const data = await res.json();
-        // تصفية المنتجات لجلب الأقمشة فقط
         const fabricProducts = data.filter(p => p.category === "أقمشة بازان" || p.mainSection === "أقمشة بازان");
         setFabrics(fabricProducts);
         setLoading(false);
@@ -52,7 +51,14 @@ export default function Fabrics() {
             {/* 1. الصورة (داخل رابط لتكون قابلة للضغط) */}
             <Link to={`/product/${product._id}`} className="w-28 h-28 md:w-full md:h-64 bg-gray-100 rounded-xl overflow-hidden shrink-0 relative block">
                {(product.images?.[0] || product.image)?.includes('http') ? (
-                 <img src={product.images?.[0] || product.image} className="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt={product.name} />
+                 // 👇 التعديل هنا: إضافة خاصية Lazy Loading 👇
+                 <img 
+                   src={product.images?.[0] || product.image} 
+                   className="w-full h-full object-cover group-hover:scale-110 transition duration-500" 
+                   alt={product.name} 
+                   loading="lazy"    // تأجيل التحميل
+                   decoding="async"  // فك التشفير في الخلفية
+                 />
                ) : (
                  <div className="w-full h-full flex items-center justify-center text-xs text-gray-400">لا صورة</div>
                )}
@@ -66,14 +72,14 @@ export default function Fabrics() {
             {/* 2. المحتوى */}
             <div className="flex-1 flex flex-col justify-between">
                <div className="md:mb-4">
-                  {/* الاسم (داخل رابط ليكون قابلاً للضغط) */}
+                  {/* الاسم */}
                   <Link to={`/product/${product._id}`}>
                     <h3 className="font-bold text-gray-800 mb-1 md:text-xl md:mb-2 line-clamp-1 hover:text-blue-600 transition">{product.name}</h3>
                   </Link>
                   
                   <p className="text-blue-600 font-bold text-sm md:text-lg">{product.price} د.ج <span className="text-gray-400 text-xs font-normal md:text-sm">/ للمتر</span></p>
                   
-                  {/* الوصف يظهر فقط في الكمبيوتر */}
+                  {/* الوصف */}
                   <p className="hidden md:block text-gray-400 text-sm mt-2 line-clamp-2">{product.description || 'قماش عالي الجودة مناسب لجميع التصاميم...'}</p>
                </div>
 
@@ -83,15 +89,15 @@ export default function Fabrics() {
                     onClick={() => { addToCart(product); alert('تمت الإضافة للسلة'); }}
                     className="flex-1 bg-blue-600 text-white py-2.5 rounded-xl font-bold text-sm shadow-md hover:bg-blue-700 transition flex items-center justify-center gap-2 md:py-3 md:text-base"
                   >
-                     <ShoppingCart size={18} />
-                     <span className="md:inline">إضافة للطلب</span>
+                      <ShoppingCart size={18} />
+                      <span className="md:inline">إضافة للطلب</span>
                   </button>
                   
                   <button 
                     onClick={() => window.open(`https://wa.me/${whatsappNumber}?text=استفسار عن قماش: ${product.name}`, '_blank')}
                     className="bg-green-50 text-green-600 p-2.5 rounded-xl hover:bg-green-100 transition border border-green-100 shadow-sm md:p-3"
                   >
-                     <MessageCircle size={20} />
+                      <MessageCircle size={20} />
                   </button>
                </div>
             </div>
@@ -103,7 +109,7 @@ export default function Fabrics() {
         )}
       </div>
 
-      {/* قسم الطلب الخاص (تمت استعادته وتحسينه للكمبيوتر) */}
+      {/* قسم الطلب الخاص */}
       <div className="bg-blue-50 border border-blue-200 rounded-3xl p-6 md:p-10 shadow-sm">
         <div className="md:flex md:gap-10 md:items-center">
             <div className="md:w-1/3 mb-4 md:mb-0">
